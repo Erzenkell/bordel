@@ -1,0 +1,114 @@
+html{
+	-webkit-user-select: none;
+}
+
+p {
+	font-size: 1.5rem;
+	color: #546E7A;
+	text-align: center;
+	margin: 1em 0;
+}
+
+section{
+	z-index: 2;
+}
+
+#nombre_cookies {
+	padding-top: 150px;
+	z-index: 100;
+}
+
+figure {
+	height: 200px;
+	text-align: center; 
+}
+
+#cookie {
+	height: 100%;
+	border: transparent;
+	border-radius: 10%;	
+	transform:scale(1);
+	transition-duration: 1s;
+}
+
+#cookie:hover {
+	transform:scale(1.2);
+	transition-duration: 1s;
+}
+
+main {
+	display: grid;
+	grid-gap: 20px;
+	grid-template-columns: 600px;
+}
+
+main {
+	padding: 0 20px;
+}
+
+main > article {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	box-shadow: 0 0 10px 1px lightgrey;
+	background: rgb(255,235,69);
+    background-image: 
+    radial-gradient(circle, rgb(255, 203, 34) 10%, rgb(218, 160, 3) 70%, rgb(192, 126, 4) 100%);
+}
+
+.bouton_achat{
+	margin-bottom: 10px;
+}
+
+.bouton_achat > button {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	background-color: transparent;
+	border-color: #546E7A;
+	color: #546E7A;
+	padding: 15px 32px;
+	font-size: 16px;
+	display: block;
+}
+
+.bouton_achat > button:hover {
+	background-color: rgba(255,215,0,0.5);
+  }
+
+.bouton_upgrade > button {
+	display: flex;
+	flex-direction: row;
+	width: 100%;
+	background-color:transparent;
+	border-color: #546E7A;
+	color: #546E7A;
+	padding: 15px 32px;
+	font-size: 16px;
+	display: block;
+}
+
+.bouton_upgrade > button:hover {
+	background-color: rgba(255,215,0,0.5);
+  }
+
+main > article figure {
+	z-index: 2;
+	position: relative;
+}
+
+#bulles{
+	z-index: 1;
+	position: absolute;
+}
+
+#mousse{
+	z-index: 1;
+	display: block;
+	position: absolute;
+	top: 0;
+    width: 600px;
+    height: 150px;
+    background-image: url('mousse.png');
+    background-size: auto 150px;
+}
