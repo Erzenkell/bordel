@@ -173,14 +173,9 @@ class Bulles{
         this.contexte = this.canvas.getContext('2d');
     }
 
-    resizeCanvas() {
-        this.setCanvas();
-        this.Creer_Bulles()
-    }
-
     Creer_Bulles(){
         this.Tableau_bulle = [];
-        let nb_bulles = Math.floor(this.options.Densite_bulle * (this.canvas.width * this.canvas.height / 2000))
+        let nb_bulles = Math.floor(this.options.Densite_bulle * (this.canvas.width * this.canvas.height / 10000))
         console.log(nb_bulles)
         for(let i = 0; i<nb_bulles; i++){
             this.Creer_Bulle()
