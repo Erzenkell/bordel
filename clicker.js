@@ -47,19 +47,19 @@ let prix_upgrade_3 = 30000;
 let nb_upgrade_4 = 0;
 let prix_upgrade_4 = 40000;
 
-setInterval(cookie_temps,50);
-
 function cookie_clic(){
     compteur_cookie+= clic_power*multiplicateur_achat_1;
     Creer_Bulle(); //crée une bulle a chaque clic
 }
+
+// Gestion des boutons
 
 function bouton_achat_1(){
     if (compteur_cookie >= prix_upgrade_clic){
         nb_upgrade_clic += 1;
         clic_power += 1;
         compteur_cookie -= prix_upgrade_clic;
-        prix_upgrade_clic += nb_upgrade_clic*2;
+        prix_upgrade_clic += nb_upgrade_clic*3;
         a1.textContent = "("+nb_upgrade_clic+") Upgrade clic : "+prix_upgrade_clic;
     }
 }
@@ -68,7 +68,7 @@ function bouton_achat_2(){
     if (compteur_cookie >= prix_achat_2){
         nb_achat_2 += 1;
         compteur_cookie -= prix_achat_2;
-        prix_achat_2 += nb_achat_2*3;
+        prix_achat_2 += nb_achat_2*2;
         cookie_par_seconde_a2 += 1;
         a2.textContent = "("+nb_achat_2+") Upgrade Pps 1 : "+prix_achat_2;
     }
@@ -78,7 +78,7 @@ function bouton_achat_3(){
     if (compteur_cookie >= prix_achat_3){
         nb_achat_3 += 1;
         compteur_cookie -= prix_achat_3;
-        prix_achat_3 += nb_achat_3*4;
+        prix_achat_3 += nb_achat_3*3;
         cookie_par_seconde_a3 += 5;
         a3.textContent = "("+nb_achat_3+") Upgrade Pps 2 : "+prix_achat_3;
     }
@@ -88,7 +88,7 @@ function bouton_achat_4(){
     if (compteur_cookie >= prix_achat_4){
         nb_achat_4 += 1;
         compteur_cookie -= prix_achat_4;
-        prix_achat_4 += nb_achat_4*5;
+        prix_achat_4 += nb_achat_4*4;
         cookie_par_seconde_a4 += 10;
         a4.textContent = "("+nb_achat_4+") Upgrade Pps 3 : "+prix_achat_4;
     }
@@ -134,15 +134,6 @@ function bouton_upgrade_4(){
     }
 }
 
-function cookie_temps(){
-    cookie_par_seconde = (cookie_par_seconde_a2*multiplicateur_achat_2) + (cookie_par_seconde_a3*multiplicateur_achat_3) + (cookie_par_seconde_a4*multiplicateur_achat_4)
-    compteur_cookie += cookie_par_seconde/20;
-    document.querySelector('#nombre_cookies').textContent = Math.round(compteur_cookie)+" Pintes";
-    document.querySelector('#cookies_par_seconde').textContent = cookie_par_seconde+" Pintes par seconde";  
-    canvas.width = doc.offsetWidth;
-    canvas.height = doc.offsetHeight;      
-}
-
 a1.addEventListener('click', bouton_achat_1);
 a2.addEventListener('click', bouton_achat_2);
 a3.addEventListener('click', bouton_achat_3);
@@ -154,7 +145,22 @@ u3.addEventListener('click', bouton_upgrade_3);
 u4.addEventListener('click', bouton_upgrade_4);
 
 cookie.addEventListener('click', cookie_clic);
-      
+
+// Fonction d'update de l'affichage 
+
+function cookie_temps(){
+    cookie_par_seconde = (cookie_par_seconde_a2*multiplicateur_achat_2) + (cookie_par_seconde_a3*multiplicateur_achat_3) + (cookie_par_seconde_a4*multiplicateur_achat_4)
+    compteur_cookie += cookie_par_seconde/20;
+    document.querySelector('#nombre_cookies').textContent = Math.round(compteur_cookie)+" Pintes";
+    document.querySelector('#cookies_par_seconde').textContent = cookie_par_seconde+" Pintes par seconde";  
+    canvas.width = doc.offsetWidth;
+    canvas.height = doc.offsetHeight;      
+}
+
+setInterval(cookie_temps,50);
+
+// Canvas pour l'affichage des bulles => Lors du lancement du site on crée un tableau que l'on remplit avec des bulles de taille / position / vitesse / opacité / sprite différentes qui montent et redescendent tout en bas lorsqu'elles atteignent le haut de la page
+
 var canvas = document.getElementById('bulles');
 canvas.width = doc.offsetWidth;
 canvas.height = doc.offsetHeight;
@@ -170,7 +176,7 @@ var Taille_sprite
 var Tableau_bulle = [];
 var nb_bulles = Math.floor(Densite_bulle * (canvas.width * canvas.height / 10000))
 
-function Creer_Bulles(){
+function Creer_Tableau_Bulles(){
     console.log(nb_bulles)
     for(let i = 0; i<nb_bulles; i++){
         Creer_Bulle()
@@ -201,11 +207,7 @@ function drawBulles(){
 
     for(let i=0; i<Tableau_bulle.length;i++){
         contexte.globalAlpha = Tableau_bulle[i].bulle.opacity;   
-        contexte.drawImage(
-            sprite,
-            Tableau_bulle[i].sprite.posX, Tableau_bulle[i].sprite.posY, Taille_sprite, Taille_sprite,
-            Tableau_bulle[i].b_canvas.posX, Tableau_bulle[i].b_canvas.posY, Tableau_bulle[i].bulle.size, Tableau_bulle[i].bulle.size
-        ) 
+        contexte.drawImage(sprite,Tableau_bulle[i].sprite.posX, Tableau_bulle[i].sprite.posY, Taille_sprite, Taille_sprite,Tableau_bulle[i].b_canvas.posX, Tableau_bulle[i].b_canvas.posY, Tableau_bulle[i].bulle.size, Tableau_bulle[i].bulle.size) 
     }
     requestAnimationFrame(drawBulles);
 }
@@ -224,6 +226,6 @@ let sprite=new Image();
 sprite.src = 'img/bulles.png'
 sprite.onload = ()=> {
     Taille_sprite = sprite.height / Nb_bulle_differentes;
-    Creer_Bulles();
+    Creer_Tableau_Bulles();
     drawBulles();
 }
